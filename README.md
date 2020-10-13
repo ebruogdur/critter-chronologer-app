@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # Critter Chronologer Project Starter
 
 Critter Chronologer a Software as a Service application that provides a scheduling interface for a small business that takes care of animals. This Spring Boot project will allow users to create pets, owners, and employees, and then schedule events for employees to provide services for pets.
@@ -81,4 +81,4 @@ Each entry in this collection contains information in its `Body` tab if necessar
 This project is licensed under the MIT License - see the [LICENSE.md]()
 =======
 # critter-chronologer-app
->>>>>>> 695334bda9a3a2428b5175fbd78af43ea42c186a
+
