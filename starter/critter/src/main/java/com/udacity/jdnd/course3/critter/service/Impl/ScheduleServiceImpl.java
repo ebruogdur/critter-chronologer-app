@@ -54,16 +54,15 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     public List<Schedule> getScheduleForCustomer(long customerId) {
 
-        String errorMessage = "Customer not found in Id : " + customerId;
-
-        Optional<Customer> optionalCustomer= customerRepository.findById(customerId);
-        Customer customer = (Customer) optionalCustomer.orElseThrow(() -> null);
-        List<Pet> pets = customer.getPets();
-
+        Optional<Customer> customer = customerRepository.findById(customerId);
+        List<Pet> pets = customer.get().getPets();
         ArrayList<Schedule> schedules = new ArrayList<>();
         for (Pet pet : pets) {
-            schedules.addAll(scheduleRepository.findAllByPetsId(pet.getId()));
+            schedules.addAll(getSchedulesForPet(pet.getId()));
         }
         return schedules;
+
+
+
     }
 }

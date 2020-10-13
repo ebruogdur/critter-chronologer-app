@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Transactional
 @Service
@@ -31,7 +32,11 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer findById(long customerId) {
-        String errorMessage = "Customer not found in Id : " + customerId;
-        return customerRepository.findById(customerId).orElseThrow(() -> null);
+        Optional<Customer> c = customerRepository.findById(customerId);
+        if (c.isPresent()) {
+            return c.get();
+        } else {
+            return null;
+        }
     }
 }

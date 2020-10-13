@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -33,6 +34,7 @@ public class PetController {
     @PostMapping
     public PetDTO savePet(@RequestBody PetDTO petDTO) {
 
+        /*
         String petName = petDTO.getName();
         PetType petType = petDTO.getType();
         Long ownerId = petDTO.getOwnerId();
@@ -60,6 +62,27 @@ public class PetController {
 
         petDTO.setId(saved.getId());
         return petDTO;
+
+         */
+
+        try {
+            Pet pet = new Pet();
+            Customer owner = customerService.findById(petDTO.getOwnerId());
+            if(owner != null){
+                pet.setOwner(owner);
+                if(owner.getPets() == null)
+                    owner.setPets(new ArrayList<>());
+                owner.getPets().add(pet);
+            }
+
+
+            petService.savePet(pet);
+            return getPetDTO(pet);
+
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new UnsupportedOperationException();
+        }
     }
 
     @GetMapping("/{petId}")
